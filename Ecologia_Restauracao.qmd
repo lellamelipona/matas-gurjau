@@ -1,0 +1,890 @@
+---
+title: "Da Fragmentação à Conectividade"
+subtitle: "Diagnóstico socioecológico e definição de um alvo de restauração nas Matas do Sistema Gurjaú"
+author: "Mirella Ribeiro"
+date: "2026-09-30"
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+# Caracterização da área de estudo e historia de ocupação
+
+
+## Localização e contexto territorial
+
+As Matas do Sistema Gurjaú estão inseridas no domínio da Mata Atlântica em Pernambuco, constituindo uma paisagem de relevância para a conservação da biodiversidade e para a manutenção de processos ecológicos associados aos remanescentes de vegetação nativa. O Refúgio de Vida Silvestre Matas do Sistema Gurjaú (RVS Gurjaú) constitui uma Unidade de Conservação estadual inserida no domínio da Mata Atlântica, abrangendo áreas dos municípios de Cabo de Santo Agostinho, Jaboatão dos Guararapes e Moreno, na Região Metropolitana do Recife. A área é reconhecida pela importância para a conservação da biodiversidade e dos recursos hídricos, incluindo nascentes e açudes associados ao abastecimento da Região Metropolitana do Recife. A publicação da CPRH também destaca sua inserção no Centro de Endemismo Pernambuco, região da Mata Atlântica ao norte do rio São Francisco que sofreu intensa transformação histórica, reforçando a relevância de estratégias de conservação e restauração dos remanescentes existentes (CPRH, 2018). Neste estudo, a área é analisada sob a perspectiva da restauração ecológica em escala de paisagem, com ênfase na possibilidade de ampliar a conectividade entre remanescentes florestais, restabelecendo a conectividade funcional entre remanescentes de Floresta Atlântica, favorecendo a regeneração natural, o fluxo de propágulos, as interações planta-animal e o fluxo gênico na paisagem das Matas do Sistema Gurjaú.
+
+A área de estudo foi delimitada espacialmente a partir do polígono definido durante a investigação das Matas do Sistema Gurjaú. O polígono foi elaborado no Google Earth e posteriormente importado para o ambiente R por meio do formato KML, permitindo sua representação cartográfica e análise espacial.
+
+A área delimitada apresenta aproximadamente 10.991,6 hectares, correspondentes a cerca de 109,9 km². Esse valor corresponde à área do polígono utilizado neste estudo e não necessariamente à área oficial da Unidade de Conservação.
+
+### Mapa da área de estudo
+
+```{r mapa-localizacao}
+#| echo: false
+
+library(sf)
+library(terra)
+
+arquivo <- "dados/poligono_area_estudo_gurjau.kml"
+
+poligono <- st_read(
+  arquivo,
+  quiet = TRUE
+  
+)
+
+poligono <- st_zm(
+  poligono,
+  drop = TRUE,
+  what = "ZM"
+)
+
+poligono_vect <- terra::vect(poligono)
+ # ============================================================
+ # MAPA 1 — ÁREA DE ESTUDO
+ # ============================================================
+ 
+ ext <- st_bbox(poligono)
+ 
+ xlim <- c(ext["xmin"], ext["xmax"])
+ ylim <- c(ext["ymin"], ext["ymax"])
+ 
+ margem_x <- 0.12 * diff(xlim)
+ margem_y <- 0.12 * diff(ylim)
+ 
+ xlim_mapa <- c(
+     xlim[1] - margem_x,
+     xlim[2] + margem_x
+ )
+ 
+ ylim_mapa <- c(
+     ylim[1] - margem_y,
+     ylim[2] + margem_y
+ )
+ 
+ # ------------------------------------------------------------
+ # MAPA
+ # ------------------------------------------------------------
+ 
+ plot(
+     st_geometry(poligono),
+     xlim = xlim_mapa,
+     ylim = ylim_mapa,
+     col = "grey85",
+     border = "black",
+     lwd = 2,
+     axes = FALSE,
+     main = "Área de estudo — Matas do Sistema Gurjaú",
+     xlab = "Longitude (°)",
+     ylab = "Latitude (°)"
+ )
+ 
+ axis(
+     1,
+     at = pretty(c(xlim[1], xlim[2]), n = 4),
+     las = 1
+ )
+ 
+ axis(
+     2,
+     at = pretty(c(ylim[1], ylim[2]), n = 4),
+     las = 1
+ )
+ 
+ box()
+ 
+ # ------------------------------------------------------------
+ # ESCALA GRÁFICA
+ # ------------------------------------------------------------
+ 
+ lat_media <- mean(ylim)
+ 
+ km_por_grau <- 111.32 * cos(
+     lat_media * pi / 180
+ )
+ 
+ comprimento <- 5 / km_por_grau
+ 
+ x0 <- xlim_mapa[1] + 0.01 * diff(xlim_mapa)
+ y0 <- ylim_mapa[1] + 0.025 * diff(ylim_mapa)
+ 
+ segments(
+     x0,
+     y0,
+     x0 + comprimento,
+     y0,
+     lwd = 4
+ )
+ 
+ segments(
+     x0,
+     y0 - 0.01 * diff(ylim_mapa),
+     x0,
+     y0 + 0.01 * diff(ylim_mapa),
+     lwd = 2
+ )
+ 
+ segments(
+     x0 + comprimento,
+     y0 - 0.01 * diff(ylim_mapa),
+     x0 + comprimento,
+     y0 + 0.01 * diff(ylim_mapa),
+     lwd = 2
+ )
+ 
+ text(
+     x0 + comprimento / 2,
+     y0 + 0.090 * diff(ylim_mapa),
+     "5 km",
+     cex = 0.8
+ )
+```
+
+# Delimitação espacial da área estudada
+
+```{r mapa-uc-area-estudo}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(sf)
+
+# ============================================================
+# 1. CARREGAR A UNIDADE DE CONSERVAÇÃO
+# ============================================================
+
+arquivo_cnuc <- "dados/shp_cnuc_2024_10/shp_cnuc_2024_10_pol.shp"
+
+cnuc <- st_read(
+  arquivo_cnuc,
+  quiet = TRUE
+)
+
+# Selecionar a RVS Matas do Sistema Gurjaú
+
+uc_gurjau <- cnuc[
+  grepl(
+    "GURJA",
+    cnuc$nome_uc,
+    ignore.case = TRUE
+  ),
+]
+
+# ============================================================
+# 2. PADRONIZAR O SISTEMA DE COORDENADAS
+# ============================================================
+
+uc_gurjau <- st_transform(
+  uc_gurjau,
+  st_crs(poligono)
+)
+
+# ============================================================
+# 3. EXTENSÃO DA ÁREA DE ESTUDO
+# ============================================================
+
+ext <- st_bbox(poligono)
+
+xlim <- c(
+  ext["xmin"],
+  ext["xmax"]
+)
+
+ylim <- c(
+  ext["ymin"],
+  ext["ymax"]
+)
+
+margem_x <- 0.12 * diff(xlim)
+margem_y <- 0.12 * diff(ylim)
+
+xlim_mapa <- c(
+  xlim[1] - margem_x,
+  xlim[2] + margem_x
+)
+
+ylim_mapa <- c(
+  ylim[1] - margem_y,
+  ylim[2] + margem_y
+)
+
+# ============================================================
+# 4. MAPA
+# ============================================================
+
+plot(
+  st_geometry(poligono),
+  xlim = xlim_mapa,
+  ylim = ylim_mapa,
+  col = "grey85",
+  border = "black",
+  lwd = 2,
+  axes = FALSE,
+  main = "Área de estudo e RVS Matas do Sistema Gurjaú",
+  xlab = "Longitude (°)",
+  ylab = "Latitude (°)"
+)
+
+# RVS sobreposta à área de estudo
+
+plot(
+  st_geometry(uc_gurjau),
+  add = TRUE,
+  col = "forestgreen",
+  border = "darkgreen",
+  lwd = 2
+)
+
+# ============================================================
+# 5. EIXOS
+# ============================================================
+
+axis(
+  1,
+  at = pretty(
+    c(xlim[1], xlim[2]),
+    n = 4
+  ),
+  las = 1
+)
+
+axis(
+  2,
+  at = pretty(
+    c(ylim[1], ylim[2]),
+    n = 4
+  ),
+  las = 1
+)
+
+box()
+
+# ============================================================
+# 6. LEGENDA
+# ============================================================
+
+legend(
+  "topright",
+  legend = c(
+    "Área de estudo",
+    "RVS Matas do Sistema Gurjaú"
+  ),
+  fill = c(
+    "grey85",
+    "forestgreen"
+  ),
+  border = c(
+    "black",
+    "darkgreen"
+  ),
+  bty = "n"
+)
+
+# ============================================================
+# 7. ESCALA GRÁFICA
+# ============================================================
+
+lat_media <- mean(ylim)
+
+km_por_grau <- 111.32 * cos(
+  lat_media * pi / 180
+)
+
+comprimento <- 5 / km_por_grau
+
+x0 <- xlim_mapa[1] +
+  0.01 * diff(xlim_mapa)
+
+y0 <- ylim_mapa[1] +
+  0.025 * diff(ylim_mapa)
+
+segments(
+  x0,
+  y0,
+  x0 + comprimento,
+  y0,
+  lwd = 4
+)
+
+segments(
+  x0,
+  y0 - 0.01 * diff(ylim_mapa),
+  x0,
+  y0 + 0.01 * diff(ylim_mapa),
+  lwd = 2
+)
+
+segments(
+  x0 + comprimento,
+  y0 - 0.01 * diff(ylim_mapa),
+  x0 + comprimento,
+  y0 + 0.01 * diff(ylim_mapa),
+  lwd = 2
+)
+
+text(
+  x0 + comprimento / 2,
+  y0 + 0.090 * diff(ylim_mapa),
+  "5 km",
+  cex = 0.8
+)
+```
+
+## Uso e cobertura da terra no entorno da unidade de conservação
+
+```{r mapa-uso-entorno-uc}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(terra)
+
+# ============================================================
+# MAPA — USO E COBERTURA DA TERRA NO ENTORNO DA RVS
+# MATAS DO SISTEMA GURJAÚ
+# ============================================================
+
+
+# ============================================================
+# 1. CARREGAR O MAPA DE USO E COBERTURA DO MAPBIOMAS
+# ============================================================
+
+mapbiomas <- rast(
+  "dados/brazil_coverage-col4_10m_2025.tif"
+)
+
+
+# ============================================================
+# 2. PREPARAR A ÁREA DE ESTUDO
+# ============================================================
+
+poligono_vect <- terra::vect(
+  poligono
+)
+
+
+# ============================================================
+# 3. RECORTAR O MAPBIOMAS PARA A ÁREA DE ESTUDO
+# ============================================================
+
+mapbiomas_area <- crop(
+  mapbiomas,
+  poligono_vect
+)
+
+mapbiomas_area <- mask(
+  mapbiomas_area,
+  poligono_vect
+)
+
+
+# ============================================================
+# 4. DEFINIR AS CLASSES DE USO E COBERTURA
+# ============================================================
+
+classes <- data.frame(
+  
+  codigo = c(
+    3,
+    11,
+    15,
+    19,
+    21,
+    24,
+    25,
+    31,
+    33
+  ),
+  
+  classe = c(
+    "Formação Florestal",
+    "Campo Alagado e Área Pantanosa",
+    "Pastagem",
+    "Cana",
+    "Mosaico de Usos",
+    "Área urbanizada",
+    "Outras Áreas Não Vegetadas",
+    "Aquicultura",
+    "Rio, Lago e Oceano"
+  ),
+  
+  cor = c(
+    "#1f8d49",
+    "#519799",
+    "#edde8e",
+    "#C27BA0",
+    "#ffefc3",
+    "#d4271e",
+    "#db4d4f",
+    "#091077",
+    "#2532e4"
+  )
+)
+
+
+# ============================================================
+# 5. CONVERTER O RASTER PARA CATEGÓRICO
+# ============================================================
+
+mapbiomas_classes <- as.factor(
+  mapbiomas_area
+)
+
+levels(
+  mapbiomas_classes
+) <- classes
+
+
+# ============================================================
+# 6. PLOTAR O USO E COBERTURA DA TERRA
+# ============================================================
+
+plot(
+  mapbiomas_classes,
+  col = classes$cor,
+  main = "Uso e cobertura da terra no entorno da RVS Matas do Sistema Gurjaú",
+  plg = list(
+    cex = 0.75
+  )
+)
+
+
+# ============================================================
+# 7. SOBREPOR O LIMITE DA ÁREA DE ESTUDO
+# ============================================================
+
+plot(
+  poligono_vect,
+  add = TRUE,
+  border = "black",
+  lwd = 2
+)
+
+
+# ============================================================
+# 8. SOBREPOR O LIMITE DA RVS MATAS DO SISTEMA GURJAÚ
+# ============================================================
+
+uc_vect <- terra::vect(
+  uc_gurjau
+)
+
+plot(
+  uc_vect,
+  add = TRUE,
+  border = "red",
+  lwd = 3
+)
+```
+
+## Uso e cobertura da terra
+
+A caracterização do uso e cobertura da terra foi realizada a partir dos dados do MapBiomas, utilizando a cobertura de 10 m da Coleção 4 para o ano de 2025. O raster foi recortado pela área delimitada para este estudo, permitindo identificar a distribuição das diferentes classes de cobertura e uso da terra no interior do polígono analisado.
+
+A configuração atual da paisagem será analisada considerando a distribuição dos remanescentes de vegetação nativa e sua relação com a matriz de uso e cobertura da terra.
+
+A identificação de áreas de vegetação potencialmente conectáveis constitui uma etapa importante para avaliar oportunidades de restauração voltadas à ampliação da conectividade ecológica.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(terra)
+
+# Carregar o raster do MapBiomas
+mapbiomas <- rast("dados/brazil_coverage-col4_10m_2025.tif")
+
+# Converter o polígono de estudo para terra
+poligono_vect <- vect(poligono)
+
+# Recortar o MapBiomas para a área de estudo
+mapbiomas_area <- crop(mapbiomas, poligono_vect)
+mapbiomas_area <- mask(mapbiomas_area, poligono_vect)
+
+# Tabela das classes presentes na área de estudo
+classes <- data.frame(
+  codigo = c(3, 11, 15, 19, 21, 24, 25, 31, 33),
+  classe = c(
+    "Formação Florestal",
+    "Campo Alagado e Área Pantanosa",
+    "Pastagem",
+    "Cana",
+    "Mosaico de Usos",
+    "Área urbanizada",
+    "Outras Áreas Não Vegetadas",
+    "Aquicultura",
+    "Rio, Lago e Oceano"
+  ),
+  cor = c(
+    "#1f8d49",
+    "#519799",
+    "#edde8e",
+    "#C27BA0",
+    "#ffefc3",
+    "#d4271e",
+    "#db4d4f",
+    "#091077",
+    "#2532e4"
+  )
+)
+
+# Transformar as classes em categorias
+mapbiomas_classes <- as.factor(mapbiomas_area)
+
+# Associar os códigos aos nomes das classes
+levels(mapbiomas_classes) <- classes
+
+# Cores das classes
+cores_mapbiomas <- classes$cor
+```
+
+```{r}
+#| label: fig-mapbiomas
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Uso e cobertura da terra na área delimitada para o estudo das Matas do Sistema Gurjaú, segundo o MapBiomas Coleção 4, 2025."
+#| fig-width: 10
+#| fig-height: 7
+
+plot(
+  mapbiomas_classes,
+  col = cores_mapbiomas,
+  main = "Uso e cobertura da terra — Matas do Sistema Gurjaú",
+  plg = list(cex = 0.8)
+)
+
+plot(
+  poligono_vect,
+  add = TRUE,
+  border = "black",
+  lwd = 2
+)
+```
+
+### Distribuição atual das classes de uso e cobertura da terra
+
+```{r tabela-uso-atual}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(knitr)
+library(kableExtra)
+
+# Área de cada pixel em hectares
+area_pixels <- cellSize(
+  mapbiomas_area,
+  unit = "ha"
+)
+
+# Soma da área por classe
+area_por_classe <- zonal(
+  area_pixels,
+  mapbiomas_area,
+  fun = "sum",
+  na.rm = TRUE
+)
+
+names(area_por_classe) <- c(
+  "codigo",
+  "area_ha"
+)
+
+# Percentual de cada classe
+area_por_classe$porcentagem <-
+  100 * area_por_classe$area_ha /
+  sum(area_por_classe$area_ha)
+
+# Associação entre códigos e nomes das classes
+tabela_uso <- merge(
+  area_por_classe,
+  classes,
+  by = "codigo"
+)
+
+# Organização da tabela
+tabela_uso <- tabela_uso[
+  order(-tabela_uso$area_ha),
+  c(
+    "classe",
+    "area_ha",
+    "porcentagem"
+  )
+]
+
+# Arredondamento
+tabela_uso$area_ha <- round(
+  tabela_uso$area_ha,
+  2
+)
+
+tabela_uso$porcentagem <- round(
+  tabela_uso$porcentagem,
+  2
+)
+
+# Renomear colunas para apresentação
+names(tabela_uso) <- c(
+  "Classe de uso e cobertura",
+  "Área (ha)",
+  "Participação (%)"
+)
+
+# Tabela formatada
+kable(
+  tabela_uso,
+  format = "html",
+  align = c("l", "r", "r"),
+  caption = "Distribuição das classes de uso e cobertura da terra na área de estudo, segundo o MapBiomas Coleção 4, 2025."
+) |>
+  kable_styling(
+    bootstrap_options = c(
+      "striped",
+      "hover",
+      "condensed",
+      "responsive"
+    ),
+    full_width = FALSE,
+    position = "center"
+  ) |>
+  column_spec(
+    2,
+    width = "110px"
+  ) |>
+  column_spec(
+    3,
+    width = "120px"
+  )
+```
+
+
+## Clima e solos
+
+As Matas do Sistema Gurjaú estão inseridas no contexto ambiental do Litoral Sul de Pernambuco, região caracterizada por clima tropical úmido e por elevada disponibilidade hídrica durante parte significativa do ano.
+
+As condições climáticas e edáficas influenciam diretamente a dinâmica da vegetação, a regeneração natural e o estabelecimento de espécies vegetais, sendo, portanto, relevantes para a definição de estratégias de restauração ecológica.
+Segundo o diagnóstico apresentado no documento, a área da Reserva apresenta clima quente e úmido, classificado como As', segundo Köppen, associado à Zona da Mata Pluvial. O regime climático caracteriza-se pela ocorrência de chuvas principalmente no período de outono-inverno, com precipitação anual indicada em aproximadamente 2.450 mm. O período mais seco ocorre, em geral, entre outubro e dezembro, sendo novembro identificado no documento como o mês de menor precipitação no período analisado
+A caracterização dos solos na área de estudo será relacionada à distribuição da vegetação, à topografia, à drenagem e ao histórico de uso da terra.Em estudo realizado em um remanescente de Floresta Atlântica localizado no RVS Gurjaú, o clima da área foi caracterizado como As’, quente e úmido, com temperatura média anual de aproximadamente 23 °C, médias anuais de máxima e mínima próximas de 29 °C e 19 °C, respectivamente, e precipitação anual em torno de 2.450 mm. O estudo também caracteriza os solos da área como Latossolos (Santos et al., 2018). Essas condições ambientais constituem elementos importantes para a interpretação da dinâmica da vegetação e dos processos de regeneração natural no território estudado.A área das Matas do Sistema Gurjaú apresenta relevo associado ao Complexo Cristalino e à Formação Cabo, com altitudes entre aproximadamente 80 e 130 m e ocorrência de relevo ondulado e forte ondulado. Os solos associados às áreas de relevo mais acidentado são predominantemente derivados da alteração de rochas cristalinas, apresentando textura argilo-arenosa a areno-argilosa e elevada variabilidade de profundidade. O documento também registra associações de Latossolos e Podzólicos, além de solos hidromórficos e aluviais nas áreas de várzea. A combinação entre relevo e características do solo confere à área susceptibilidade a processos erosivos, aspecto relevante para a avaliação dos processos de degradação e para a definição de estratégias de restauração.
+
+## Vegetação e estrutura da paisagem
+
+A paisagem estudada apresenta remanescentes de vegetação nativa inseridos em uma matriz territorial composta por diferentes usos da terra.
+
+Nesse contexto, a restauração ecológica pode ser utilizada não apenas para recuperar áreas degradadas isoladamente, mas também para aumentar a conectividade entre remanescentes existentes.
+
+A identificação de áreas estratégicas para restauração poderá contribuir para reduzir o isolamento dos fragmentos e favorecer processos ecológicos relacionados ao deslocamento da fauna, à dispersão de sementes, à polinização e ao fluxo gênico. A estrutura e a dinâmica da vegetação do RVS Gurjaú também podem ser caracterizadas a partir dos processos de regeneração e dispersão de propágulos. Em estudo realizado em um remanescente de Floresta Atlântica da unidade, foram registradas 61 espécies na chuva de sementes ao longo de dois anos de amostragem, com destaque para Fabaceae, que apresentou oito espécies. Entre as síndromes de dispersão, observou-se elevada densidade de sementes zoocóricas em comparação às síndromes anemocórica e autocórica (Santos et al., 2018).
+
+Esse resultado evidencia que a manutenção da dinâmica florestal no território não depende apenas da presença física dos remanescentes de vegetação, mas também da continuidade dos processos ecológicos associados à fauna. Os autores destacam que os animais participam da entrada e saída de propágulos nos fragmentos e que as interações entre plantas e animais relacionadas à polinização e à dispersão contribuem para processos sucessionais e para o fluxo gênico, favorecendo o estabelecimento de populações vegetais viáveis (Santos et al., 2018).
+
+## Fauna e importância ecológica
+
+As informações obtidas por meio do diagnóstico socioambiental serão utilizadas para caracterizar a comunidade de fauna registrada na área de estudo.
+
+Além da ocorrência das espécies, serão considerados aspectos relacionados à sua função ecológica e à sua dependência da disponibilidade e conectividade dos habitats. A fauna do RVS Gurjaú apresenta também relevância para a avaliação das condições ambientais dos fragmentos. Levantamento realizado entre 2015 e 2018 registrou 30 espécies de anfíbios, pertencentes a 15 gêneros e oito famílias. O estudo destaca a sensibilidade dos anfíbios às alterações ambientais e identificou diferenças na riqueza e na composição das assembleias entre fragmentos submetidos a diferentes gradientes de influência antrópica (Barbosa et al., 2018).
+
+Esses resultados são particularmente relevantes para o diagnóstico da paisagem, pois indicam que a fragmentação e a heterogeneidade das condições ambientais podem estar associadas a alterações na composição das comunidades biológicas. Dessa forma, a avaliação da conectividade da paisagem deve considerar não apenas a distribuição espacial dos remanescentes florestais, mas também sua capacidade de sustentar comunidades e processos ecológicos associados.
+
+## Contexto socioambiental e uso do território
+
+A compreensão da paisagem não se limita aos seus componentes ecológicos. Os diferentes usos do território, as atividades humanas e as relações estabelecidas pelas comunidades com o ambiente também fazem parte do diagnóstico socioecológico.
+
+Dessa forma, a definição das estratégias de restauração deverá considerar simultaneamente os processos ecológicos e as características sociais e territoriais da área estudada. O contexto socioambiental do Sistema Gurjaú envolve a sobreposição entre conservação da biodiversidade, usos do território e necessidades das populações locais. Estudos reunidos pela CPRH registram a presença de comunidades de agricultores no interior e no entorno da unidade, com atividades de subsistência acompanhadas pela gestão e pelo Conselho Gestor. Representantes comunitários e sindicais participam das reuniões do Conselho, evidenciando que a conservação da área está relacionada também à construção de mecanismos de participação e articulação entre diferentes atores sociais (Vieira-Silva et al., 2018).
+
+Entre as pressões identificadas para a unidade estão caça, desmatamento e deposição de resíduos sólidos. O diagnóstico também aponta a existência de pressões relacionadas às ocupações urbanas, plantações e criação de animais, além de vulnerabilidades de natureza social e socioeconômica (Vieira-Silva et al., 2018; Souza; Barbosa, 2018).
+
+Nesse contexto, a restauração da paisagem deve ser compreendida como um processo socioecológico, no qual a recuperação da vegetação e da conectividade precisa ser articulada às formas de uso do território, às condições sociais locais e aos mecanismos de participação existentes. Assim, a definição das áreas prioritárias para restauração não deve considerar somente critérios biofísicos, mas também a viabilidade territorial e a participação dos atores envolvidos.
+
+# Histórico e diagnóstico da degradação
+
+No diagnóstico da área, foram identificados problemas relacionados à ocupação e proteção dos recursos naturais, incluindo desmatamento, caça, erosão e poluição dos recursos hídricos. O documento aponta esses processos entre os aspectos que demandavam intervenção para a proteção da Reserva.
+As Matas do Sistema Gurjaú estão inseridas em uma paisagem cuja configuração atual resulta de uma longa trajetória de ocupação e transformação territorial. A área está localizada na porção sul da Região Metropolitana do Recife, entre os municípios de Jaboatão dos Guararapes, Cabo de Santo Agostinho e Moreno, e integra a bacia do rio Pirapama, tendo o rio Gurjaú como um de seus principais tributários.
+
+Historicamente, a região esteve associada à implantação de engenhos e ao desenvolvimento da cultura canavieira. O diagnóstico registra a presença de diversos engenhos na área, incluindo São João, Secupema e São Salvador. No início do século XX, parte dessas propriedades foi adquirida ou desapropriada pelo Estado de Pernambuco para fins relacionados ao abastecimento de água, estabelecendo uma relação entre a conservação dos recursos naturais e a segurança hídrica da Região Metropolitana do Recife.
+
+A área apresenta condições ambientais heterogêneas, com clima quente e úmido, precipitação anual indicada no diagnóstico em aproximadamente 2.450 mm e diferentes unidades de solo, incluindo Latossolos, Podzólicos, Gleissolos, Cambissolos e solos aluviais, distribuídos em diferentes condições de relevo e drenagem.
+
+A Reserva Ecológica de Gurjaú foi criada pela Lei Estadual nº 9.989, de 13 de janeiro de 1987, tendo como finalidade a proteção de remanescentes de Mata Atlântica. Entretanto, o diagnóstico histórico aponta limitações na implementação e proteção efetiva dessas áreas, além da ocorrência de pressões como desmatamento, caça, erosão e poluição dos recursos hídricos.
+
+Dessa forma, a paisagem de Gurjaú pode ser compreendida como resultado da interação entre história de ocupação, uso agrícola, infraestrutura de abastecimento hídrico, proteção de remanescentes florestais e diferentes processos de transformação ambiental. Essa trajetória histórica constitui a base para compreender a atual configuração da cobertura da terra e discutir estratégias de restauração voltadas à recuperação da vegetação e ao aumento da conectividade entre os remanescentes florestais.
+
+## Histórico de transformação da paisagem (mapbiomas)
+
+A reconstrução da trajetória de transformação da paisagem será realizada a partir das informações disponíveis sobre o histórico de uso da área e das evidências obtidas durante o diagnóstico socioambiental.
+
+O objetivo é compreender como a configuração atual da paisagem foi formada e quais processos contribuíram para a redução, fragmentação ou alteração da vegetação nativa. A trajetória registrada pelo MapBiomas evidencia mudanças importantes na composição do território estudado, particularmente a expansão da classe Cana e a redução do Mosaico de Usos entre 1985 e 2005. Entretanto, a interpretação dessas mudanças deve ser feita em conjunto com evidências ecológicas produzidas na própria região. Estudos realizados no RVS Gurjaú registraram diferenças na composição e riqueza de anfíbios associadas a gradientes antrópicos e demonstraram a importância da fauna para a dispersão de propágulos e para processos relacionados à regeneração florestal (Barbosa et al., 2018; Santos et al., 2018).
+
+Dessa forma, os dados históricos de uso e cobertura da terra não são interpretados isoladamente como evidência de degradação ecológica. Eles constituem uma evidência da transformação da matriz territorial que, quando associada aos estudos ecológicos realizados na região, permite discutir possíveis implicações da fragmentação para a manutenção de processos ecológicos e da conectividade funcional.
+
+
+
+## Fragmentação e perda de conectividade
+
+A fragmentação da vegetação pode aumentar o isolamento entre remanescentes e modificar processos ecológicos relacionados ao deslocamento dos organismos.
+
+Neste estudo, a conectividade será analisada como um componente central do diagnóstico, considerando a possibilidade de utilização da restauração para estabelecer ou fortalecer conexões entre áreas de habitat.
+
+## Vetores de degradação
+
+Serão identificados os principais fatores que contribuíram para a degradação ou fragmentação da paisagem, considerando as evidências disponíveis para a área de estudo. Os estudos reunidos pela CPRH identificam diferentes pressões incidentes sobre o território do RVS Gurjaú, incluindo caça, desmatamento e deposição de resíduos sólidos. Também são apontadas pressões associadas às ocupações urbanas, plantações e criação de animais, além de vulnerabilidades sociais e socioeconômicas que interferem na governança e na capacidade de conservação da unidade (Vieira-Silva et al., 2018; Souza; Barbosa, 2018).
+
+A presença desses vetores indica que a transformação da paisagem não pode ser compreendida exclusivamente como resultado de alterações na cobertura vegetal. A dinâmica territorial envolve simultaneamente fatores ecológicos, produtivos, sociais e institucionais. Por esse motivo, estratégias de restauração voltadas à conectividade devem considerar tanto a localização dos remanescentes e áreas prioritárias para recuperação quanto as condições de uso, ocupação e gestão existentes no território.
+
+## Alterações nos processos ecológicos
+
+As alterações na estrutura da paisagem podem produzir efeitos sobre processos como dispersão de sementes, polinização, movimentação da fauna e regeneração da vegetação.
+
+A identificação desses processos será utilizada para orientar a definição do alvo de restauração. As evidências disponíveis para o RVS Gurjaú indicam que as alterações na paisagem podem ser discutidas também a partir dos processos ecológicos que sustentam a regeneração e a manutenção das comunidades. O estudo de chuva de sementes registrou elevada participação de espécies zoocóricas e destaca a importância dos animais na entrada e saída de propágulos dos fragmentos. Os autores ressaltam ainda que as interações entre plantas e animais relacionadas à polinização e à dispersão contribuem para processos sucessionais e para o fluxo gênico (Santos et al., 2018).
+
+Paralelamente, o levantamento de anfíbios registrou 30 espécies e identificou diferenças na riqueza e composição das assembleias entre fragmentos submetidos a diferentes gradientes antrópicos (Barbosa et al., 2018).
+
+Em conjunto, essas evidências reforçam que o diagnóstico da paisagem deve ultrapassar a análise da quantidade de cobertura florestal. A conservação e a restauração dos remanescentes devem considerar a manutenção dos processos que conectam os fragmentos, incluindo deslocamento da fauna, dispersão de sementes, regeneração natural, polinização e fluxo gênico. Nesse sentido, a conectividade passa a constituir uma dimensão funcional do processo de restauração.
+
+# Definição do alvo de restauração
+
+## Ecossistema de referência
+
+O ecossistema de referência será definido a partir das características dos remanescentes de vegetação nativa existentes na própria paisagem e das informações ecológicas disponíveis para a região.
+
+Dessa forma, o alvo de restauração não será definido como uma condição natural abstrata ou necessariamente como uma reconstrução de uma paisagem considerada intocada, mas como uma condição de referência espacialmente e ecologicamente relacionada à área estudada. Para a definição do ecossistema de referência, além das características estruturais da Floresta Atlântica regional, devem ser considerados os processos ecológicos registrados nos remanescentes existentes no Sistema Gurjaú. A ocorrência de chuva de sementes com 61 espécies, a elevada participação de espécies zoocóricas e o registro de diferentes grupos de fauna demonstram que os remanescentes locais ainda constituem fontes de propágulos e habitats capazes de sustentar processos ecológicos relevantes (Santos et al., 2018; Barbosa et al., 2018).
+
+Assim, o ecossistema de referência adotado neste trabalho não deve ser entendido exclusivamente como uma condição histórica ou como uma composição vegetal fixa. Ele é considerado a partir da estrutura da vegetação, da composição biológica e, sobretudo, dos processos ecológicos que permitem a regeneração e a manutenção da biodiversidade na paisagem.
+
+## Estado desejado
+
+O estado desejado consiste na recuperação de características da vegetação nativa e de processos ecológicos capazes de favorecer a manutenção da biodiversidade e a conectividade da paisagem.
+
+## Conectividade como alvo de restauração
+
+A conectividade ecológica constitui o principal eixo deste estudo.
+
+A hipótese de trabalho é que áreas selecionadas estrategicamente para restauração possam contribuir para reduzir a distância ou o isolamento entre remanescentes de vegetação nativa, favorecendo o deslocamento de organismos e outros processos ecológicos.
+
+A identificação dessas áreas deverá ser fundamentada nas características espaciais da paisagem e nas informações ecológicas disponíveis. Os estudos realizados no RVS Gurjaú fornecem evidências de que a conservação da paisagem depende da manutenção de processos ecológicos que ultrapassam os limites de fragmentos individuais. A elevada ocorrência de sementes zoocóricas demonstra a importância da fauna para o transporte de propágulos, enquanto as interações entre plantas e animais relacionadas à dispersão e à polinização estão associadas à regeneração e ao fluxo gênico. Paralelamente, diferenças na composição e riqueza de anfíbios entre fragmentos submetidos a diferentes gradientes antrópicos evidenciam a relação entre condições da paisagem e comunidades biológicas (Santos et al., 2018; Barbosa et al., 2018).
+
+Diante disso, a conectividade é definida neste trabalho não apenas como a continuidade física da cobertura florestal, mas como uma condição da paisagem capaz de favorecer o deslocamento de organismos e a manutenção dos processos ecológicos. O alvo de restauração, portanto, consiste em ampliar e qualificar a conexão entre remanescentes de Floresta Atlântica, favorecendo a dispersão de propágulos, a regeneração natural, as interações planta-animal e o fluxo gênico.
+
+Nesse sentido, a restauração das áreas prioritárias deverá contribuir para transformar uma paisagem caracterizada por remanescentes isolados e uma matriz predominantemente antrópica em uma paisagem com maior continuidade e permeabilidade ecológica.
+
+## Indicadores de sucesso
+
+Entre os indicadores que poderão ser utilizados estão a recuperação da cobertura vegetal nativa, o estabelecimento de regeneração natural, a redução de áreas de descontinuidade entre remanescentes e evidências de utilização das áreas restauradas pela fauna.
+
+# Estados alternativos estáveis e estratégias de restauração
+
+## Diagnóstico do estado atual
+
+O estado atual da área será analisado considerando a estrutura da vegetação, o grau de fragmentação, as condições ambientais e os fatores de perturbação identificados.
+
+## Mecanismos que podem manter a fragmentação
+
+A permanência de áreas degradadas ou isoladas pode estar associada à continuidade de processos de perturbação, à baixa disponibilidade de propágulos, ao isolamento dos remanescentes ou à existência de uma matriz pouco permeável ao deslocamento da fauna.
+
+Esses mecanismos deverão ser relacionados às evidências observadas na área de estudo. A manutenção da fragmentação da paisagem pode estar associada à permanência de diferentes pressões territoriais. Estudos realizados no RVS Gurjaú registram caça, desmatamento e deposição de resíduos sólidos como pressões sobre a unidade, além de ocupações urbanas, plantações e criação de animais entre os fatores relacionados às ameaças e vulnerabilidades identificadas no território (Vieira-Silva et al., 2018; Souza; Barbosa, 2018).
+
+A persistência desses fatores pode dificultar tanto a recuperação da vegetação quanto a manutenção da conectividade entre os fragmentos. Além disso, a literatura local evidencia que a conservação depende de mecanismos de governança, participação comunitária, recursos humanos e financeiros e ações permanentes de educação ambiental (Vieira-Silva et al., 2018; Souza; Barbosa, 2018).
+
+Assim, a permanência de um estado fragmentado pode resultar da interação entre processos biofísicos e condições socioambientais, tornando insuficiente uma estratégia de restauração baseada exclusivamente no plantio de espécies arbóreas.
+
+## Limiares ecológicos
+
+A análise de possíveis limiares ecológicos será utilizada para discutir se a configuração atual da paisagem pode limitar a recuperação natural da vegetação ou a movimentação dos organismos entre os remanescentes.
+
+## Estratégias de restauração
+
+As estratégias de restauração serão definidas de acordo com as características ambientais e sociais identificadas no diagnóstico.
+
+Entre as possibilidades estão a condução da regeneração natural, o enriquecimento de áreas em regeneração, o plantio de espécies nativas e a recuperação de áreas estratégicas para aumentar a conectividade.
+
+A escolha da estratégia deverá considerar as condições específicas de cada área e os fatores que atualmente limitam sua recuperação. A experiência acumulada no RVS Gurjaú demonstra também a importância de estratégias de educação ambiental articuladas à conservação. Entre as iniciativas desenvolvidas pela gestão da unidade encontra-se o projeto “Mata Atlântica: Estudo, Conheço, Quero Bem!”, que envolveu escolas dos municípios de Cabo de Santo Agostinho, Moreno e Jaboatão dos Guararapes, com formação de 60 docentes por meio de atividades como palestras, aulas interativas e saídas de campo (Braz et al., 2018).
+
+Essas experiências indicam que ações de restauração em uma paisagem socioecológica como Gurjaú podem incorporar processos de formação, comunicação e participação social como componentes da estratégia de conservação. A restauração da conectividade, portanto, deve considerar não apenas intervenções físicas na paisagem, mas também a construção de condições sociais que favoreçam a manutenção das áreas restauradas.
+
+\## Articulação institucional e alinhamento com o Conselho Gestor
+
+A primeira etapa da estratégia de restauração proposta consiste na realização de uma reunião de alinhamento com a gestão da Unidade de Conservação, a CPRH e o Conselho Gestor do RVS Matas do Sistema Gurjaú. O objetivo é apresentar o diagnóstico socioecológico produzido, discutir os resultados do levantamento de uso e cobertura da terra, a identificação dos remanescentes e das áreas potencialmente prioritárias para restauração e, principalmente, estabelecer um processo participativo para definição das estratégias de intervenção.
+
+Essa etapa é necessária porque a restauração ocorre em um território que já possui dinâmica institucional, histórica e social própria. Assim, as áreas identificadas por critérios ecológicos devem ser confrontadas com o conhecimento da gestão da unidade e com as condições concretas de uso e ocupação do território. O Conselho Gestor constitui, nesse sentido, um espaço inicial de articulação entre diferentes atores envolvidos na conservação.
+
+A reunião deverá produzir, como encaminhamento, um plano inicial de participação social, definindo os atores a serem envolvidos, formas de comunicação, metodologia de escuta, áreas ou comunidades prioritárias para as atividades participativas e mecanismos para incorporação das contribuições locais às decisões do projeto.
+
+## Escuta e construção participativa da população tradicional
+
+Após o alinhamento institucional, será desenvolvido um processo de escuta e construção participativa junto às populações moradoras ancestrais do território. Essa etapa parte do reconhecimento de que os habitantes que mantêm relações históricas com a paisagem possuem conhecimentos construídos a partir da experiência cotidiana e da observação continuada do território, incluindo informações sobre mudanças ambientais, disponibilidade de água, áreas de ocorrência de fauna, locais de regeneração natural, espécies utilizadas, áreas de maior pressão e transformações ocorridas ao longo do tempo.
+
+A escuta não deverá ser conduzida apenas como procedimento de coleta de informações para subsidiar decisões técnicas. Ela será compreendida como espaço de diálogo entre conhecimento científico, conhecimento ecológico local e experiências territoriais. Dessa forma, os moradores serão considerados sujeitos participantes da construção das estratégias de restauração, e não apenas beneficiários ou fontes de informação.
+
+As atividades poderão ser realizadas por meio de rodas de conversa, caminhadas de reconhecimento territorial, mapas participativos, entrevistas e oficinas, respeitando os modos de organização e comunicação de cada comunidade. Durante esse processo deverão ser identificadas percepções sobre as mudanças ocorridas na paisagem, áreas consideradas importantes pela população, práticas de manejo existentes, espécies de interesse, locais com potencial de regeneração, conflitos de uso e oportunidades para participação direta nas ações de restauração.
+
+As informações produzidas nessa etapa deverão ser sistematizadas e posteriormente confrontadas com os dados ecológicos e espaciais do diagnóstico, permitindo identificar convergências, complementaridades e eventuais divergências entre diferentes formas de conhecimento.
+
+## Integração entre o saber científico e o conhecimento territorial
+
+A definição das estratégias de restauração será construída a partir da integração entre diferentes formas de conhecimento. Os dados provenientes do sensoriamento remoto, dos levantamentos de biodiversidade e da literatura científica serão articulados ao conhecimento produzido pelos moradores a partir de sua experiência histórica e cotidiana no território.
+
+Essa integração poderá contribuir para identificar situações que não são necessariamente evidentes em uma análise espacial, como locais de regeneração espontânea, áreas utilizadas ou evitadas pela fauna, mudanças históricas na disponibilidade de recursos, ocorrência de espécies, alterações na disponibilidade hídrica e áreas submetidas a diferentes formas de manejo.
+
+O conhecimento local será, portanto, incorporado como componente do diagnóstico socioecológico e como subsídio para a tomada de decisão. A análise espacial poderá indicar áreas potencialmente prioritárias para restauração, enquanto o conhecimento territorial poderá contribuir para avaliar sua viabilidade, compreender sua dinâmica e definir estratégias adequadas às condições locais.
+
+Dessa forma, a restauração será planejada a partir da complementaridade entre evidências científicas e conhecimentos produzidos no território, evitando a adoção de soluções padronizadas e descontextualizadas.
+
+## Oficina Participativa de Planejamento da Restauração
+
+Após a etapa de escuta, será realizada uma oficina participativa de co-desenho das estratégias de restauração. Os resultados do diagnóstico espacial e ecológico serão apresentados em linguagem acessível e confrontados com os conhecimentos e percepções construídos pelas comunidades.
+
+A oficina deverá buscar responder coletivamente a questões como: quais áreas devem ser priorizadas; quais locais apresentam potencial de regeneração natural; onde a restauração ativa seria necessária; quais espécies são reconhecidas como importantes pela população; quais práticas locais podem ser incorporadas ao processo; quais áreas apresentam restrições ou conflitos de uso; e de que maneira os moradores podem participar da implantação, do monitoramento e da manutenção das áreas restauradas.
+
+A partir desse processo, as áreas prioritárias poderão ser classificadas segundo diferentes estratégias de restauração, como condução da regeneração natural, enriquecimento de áreas em regeneração, restauração ativa por plantio de espécies nativas, implantação de núcleos de regeneração, recuperação de áreas ripárias e estabelecimento de elementos de conexão entre fragmentos.
+
+A definição da técnica, portanto, deverá decorrer das condições ecológicas e sociais de cada área, e não da aplicação de uma única metodologia para todo o território. A restauração proposta deverá ser acompanhada por uma estratégia de integração entre pesquisa científica e protagonismo social. Para isso, as comunidades poderão participar da identificação de perguntas de pesquisa, do reconhecimento de áreas prioritárias, do acompanhamento da regeneração e do registro de mudanças observadas no território.
+
+Essa abordagem permite transformar a restauração em um processo contínuo de aprendizagem, no qual os resultados das pesquisas retornam ao território em linguagem acessível e podem orientar decisões posteriores. Ao mesmo tempo, observações realizadas pelos moradores podem gerar novas perguntas e hipóteses a serem investigadas pela equipe científica.
+
+Sempre que pertinente, poderão ser desenvolvidas ações de ciência participativa, como registros de fauna e flora, acompanhamento da regeneração natural, monitoramento da ocorrência de espécies dispersoras, registro da floração e frutificação de espécies nativas e acompanhamento de áreas restauradas.
+
+O objetivo não é substituir métodos científicos por observações locais, mas construir uma relação complementar entre diferentes formas de produção de conhecimento. Nesse modelo, a população participa como sujeito do processo de restauração e como parceira na produção e interpretação das informações sobre a paisagem. Somente após as etapas de alinhamento institucional, escuta territorial e co-desenho deverão ser definidas as intervenções específicas de restauração. A escolha das técnicas será orientada pela combinação entre o diagnóstico da paisagem, as condições ecológicas locais, o potencial de regeneração natural, as pressões existentes e as informações produzidas pelas comunidades.
+
+Áreas que apresentem capacidade de regeneração espontânea poderão ser destinadas prioritariamente à condução da regeneração natural, com redução ou controle dos fatores de degradação. Áreas nas quais a regeneração seja insuficiente poderão receber enriquecimento ou plantio de espécies nativas. Em pontos estratégicos para a conectividade, poderão ser implantados núcleos de restauração ou faixas de vegetação que funcionem como elementos de conexão entre remanescentes.
+
+A restauração deverá priorizar espécies nativas ecologicamente adequadas às condições locais e, sempre que tecnicamente apropriado, considerar espécies reconhecidas pelas comunidades como importantes para alimentação, uso cultural, atração de fauna ou outras funções socioecológicas.
+
+A implantação deverá ser acompanhada de ações de proteção, manutenção e monitoramento, com definição clara das responsabilidades institucionais e comunitárias e dos mecanismos de acompanhamento dos resultados.
+
+## Proposta de corredor ecológico
+
+A partir do diagnóstico espacial e ecológico, será discutida a possibilidade de estabelecimento de uma estratégia de restauração voltada à formação de uma conexão entre remanescentes de vegetação nativa.
+
+Neste estudo, o corredor ecológico será tratado como uma hipótese de planejamento da paisagem, cuja efetividade deverá ser posteriormente avaliada por meio de análises espaciais e indicadores ecológicos.
+
+## Monitoramento ecológico e participativo
+
+O monitoramento deverá acompanhar tanto a recuperação da estrutura da vegetação quanto a retomada de processos ecológicos e a participação social. Entre os indicadores ecológicos poderão ser considerados sobrevivência e crescimento das plantas, cobertura do solo, regeneração natural, riqueza e composição de espécies, presença de fauna dispersora e polinizadora e ocorrência de processos de floração, frutificação e dispersão.
+
+Para avaliar a conectividade, deverão ser acompanhadas mudanças na configuração espacial dos remanescentes e das áreas restauradas, bem como indicadores relacionados à utilização dessas áreas pela fauna e à ocorrência de regeneração entre fragmentos.
+
+O monitoramento social deverá considerar a participação dos moradores nas atividades, a continuidade das ações locais, a percepção sobre as mudanças ocorridas no território e a incorporação do conhecimento produzido pelas comunidades ao planejamento das etapas seguintes.
+
+Sempre que possível, o monitoramento será realizado de forma participativa, envolvendo moradores, pesquisadores, gestores e instituições parceiras. Os resultados deverão ser periodicamente compartilhados com os participantes, permitindo que o processo de restauração seja adaptativo e que as estratégias sejam revisadas conforme os resultados observados.
+
+# Síntese
+
+O diagnóstico das Matas do Sistema Gurjaú indica a importância de analisar a restauração ecológica em escala de paisagem, considerando não apenas a recuperação de áreas isoladas, mas também a conectividade entre remanescentes de vegetação nativa. A delimitação espacial realizada neste estudo permite organizar as informações ecológicas e socioambientais em uma mesma unidade de análise. A reconstrução do histórico de uso e dos processos de degradação será fundamental para compreender os fatores que condicionam a configuração atual da paisagem. A definição do alvo de restauração será baseada em referências ecológicas locais e na recuperação de processos, evitando a adoção de um estado natural abstrato como objetivo. A conectividade será considerada um componente central do planejamento da restauração. A identificação de áreas estratégicas poderá contribuir para reduzir o isolamento entre fragmentos. Entretanto, a efetividade de uma possível conexão deverá ser avaliada por indicadores espaciais e ecológicos. Assim, a restauração proposta deverá integrar recuperação da vegetação, conservação da biodiversidade e planejamento territorial.
+
+# REFERÊNCIAS
+
+AGÊNCIA ESTADUAL DE MEIO AMBIENTE – CPRH. *Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú*. Recife: CPRH, 2018.
+
+BARBOSA, Gessica Gomes et al. Anfíbios de uma área protegida de Mata Atlântica, Nordeste do Brasil. In: CPRH. *Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú*. Recife: CPRH, 2018.
+
+BRAZ, Elaine Cristina Ferreira; AMORIM, Fábio Joventino de; GUERRA, Tassiane Novacosque Feitosa. Projeto de Educação Ambiental Mata Atlântica: Estudo, Conheço, Quero Bem! In: CPRH. *Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú*. Recife: CPRH, 2018.
+
+SANTOS, Priscila Silva dos et al. Síndrome de dispersão das espécies presentes na chuva de sementes em um fragmento de Floresta Atlântica em Pernambuco, Brasil. In: CPRH. *Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú*. Recife: CPRH, 2018.
+
+SOUZA, Tatiana Santana de; BARBOSA, Marx Prestes. Áreas (des)protegidas do Nordeste brasileiro: as ameaças, vulnerabilidades e riscos no Refúgio de Vida Silvestre Matas do Sistema Gurjaú/PE, Brasil. In: CPRH. *Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú*. Recife: CPRH, 2018.
+
+VIEIRA-SILVA, Kevin Cezar de Santana et al. Avaliação da efetividade da Unidade de Conservação Refúgio da Vida Silvestre Mata de Gurjaú na percepção dos técnicos e funcionários. In: CPRH. *Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú*. Recife: CPRH, 2018.
+

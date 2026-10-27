@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mirella Ribeiro">
+<meta name="dcterms.date" content="2026-09-30">
+
+<title>Da Fragmentação à Conectividade</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Ecologia_Restauracao_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Ecologia_Restauracao_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Ecologia_Restauracao_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Ecologia_Restauracao_files/libs/quarto-html/popper.min.js"></script>
+<script src="Ecologia_Restauracao_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Ecologia_Restauracao_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Ecologia_Restauracao_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Ecologia_Restauracao_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Ecologia_Restauracao_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Ecologia_Restauracao_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Ecologia_Restauracao_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="Ecologia_Restauracao_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="Ecologia_Restauracao_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#caracterização-da-área-de-estudo-e-historia-de-ocupação" id="toc-caracterização-da-área-de-estudo-e-historia-de-ocupação" class="nav-link active" data-scroll-target="#caracterização-da-área-de-estudo-e-historia-de-ocupação"><span class="header-section-number">1</span> Caracterização da área de estudo e historia de ocupação</a>
+  <ul class="collapse">
+  <li><a href="#localização-e-contexto-territorial" id="toc-localização-e-contexto-territorial" class="nav-link" data-scroll-target="#localização-e-contexto-territorial"><span class="header-section-number">1.1</span> Localização e contexto territorial</a>
+  <ul class="collapse">
+  <li><a href="#mapa-da-área-de-estudo" id="toc-mapa-da-área-de-estudo" class="nav-link" data-scroll-target="#mapa-da-área-de-estudo"><span class="header-section-number">1.1.1</span> Mapa da área de estudo</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#delimitação-espacial-da-área-estudada" id="toc-delimitação-espacial-da-área-estudada" class="nav-link" data-scroll-target="#delimitação-espacial-da-área-estudada"><span class="header-section-number">2</span> Delimitação espacial da área estudada</a>
+  <ul class="collapse">
+  <li><a href="#uso-e-cobertura-da-terra-no-entorno-da-unidade-de-conservação" id="toc-uso-e-cobertura-da-terra-no-entorno-da-unidade-de-conservação" class="nav-link" data-scroll-target="#uso-e-cobertura-da-terra-no-entorno-da-unidade-de-conservação"><span class="header-section-number">2.1</span> Uso e cobertura da terra no entorno da unidade de conservação</a></li>
+  <li><a href="#uso-e-cobertura-da-terra" id="toc-uso-e-cobertura-da-terra" class="nav-link" data-scroll-target="#uso-e-cobertura-da-terra"><span class="header-section-number">2.2</span> Uso e cobertura da terra</a>
+  <ul class="collapse">
+  <li><a href="#distribuição-atual-das-classes-de-uso-e-cobertura-da-terra" id="toc-distribuição-atual-das-classes-de-uso-e-cobertura-da-terra" class="nav-link" data-scroll-target="#distribuição-atual-das-classes-de-uso-e-cobertura-da-terra"><span class="header-section-number">2.2.1</span> Distribuição atual das classes de uso e cobertura da terra</a></li>
+  </ul></li>
+  <li><a href="#clima-e-solos" id="toc-clima-e-solos" class="nav-link" data-scroll-target="#clima-e-solos"><span class="header-section-number">2.3</span> Clima e solos</a></li>
+  <li><a href="#vegetação-e-estrutura-da-paisagem" id="toc-vegetação-e-estrutura-da-paisagem" class="nav-link" data-scroll-target="#vegetação-e-estrutura-da-paisagem"><span class="header-section-number">2.4</span> Vegetação e estrutura da paisagem</a></li>
+  <li><a href="#fauna-e-importância-ecológica" id="toc-fauna-e-importância-ecológica" class="nav-link" data-scroll-target="#fauna-e-importância-ecológica"><span class="header-section-number">2.5</span> Fauna e importância ecológica</a></li>
+  <li><a href="#contexto-socioambiental-e-uso-do-território" id="toc-contexto-socioambiental-e-uso-do-território" class="nav-link" data-scroll-target="#contexto-socioambiental-e-uso-do-território"><span class="header-section-number">2.6</span> Contexto socioambiental e uso do território</a></li>
+  </ul></li>
+  <li><a href="#histórico-e-diagnóstico-da-degradação" id="toc-histórico-e-diagnóstico-da-degradação" class="nav-link" data-scroll-target="#histórico-e-diagnóstico-da-degradação"><span class="header-section-number">3</span> Histórico e diagnóstico da degradação</a>
+  <ul class="collapse">
+  <li><a href="#histórico-de-transformação-da-paisagem-mapbiomas" id="toc-histórico-de-transformação-da-paisagem-mapbiomas" class="nav-link" data-scroll-target="#histórico-de-transformação-da-paisagem-mapbiomas"><span class="header-section-number">3.1</span> Histórico de transformação da paisagem (mapbiomas)</a></li>
+  <li><a href="#fragmentação-e-perda-de-conectividade" id="toc-fragmentação-e-perda-de-conectividade" class="nav-link" data-scroll-target="#fragmentação-e-perda-de-conectividade"><span class="header-section-number">3.2</span> Fragmentação e perda de conectividade</a></li>
+  <li><a href="#vetores-de-degradação" id="toc-vetores-de-degradação" class="nav-link" data-scroll-target="#vetores-de-degradação"><span class="header-section-number">3.3</span> Vetores de degradação</a></li>
+  <li><a href="#alterações-nos-processos-ecológicos" id="toc-alterações-nos-processos-ecológicos" class="nav-link" data-scroll-target="#alterações-nos-processos-ecológicos"><span class="header-section-number">3.4</span> Alterações nos processos ecológicos</a></li>
+  </ul></li>
+  <li><a href="#definição-do-alvo-de-restauração" id="toc-definição-do-alvo-de-restauração" class="nav-link" data-scroll-target="#definição-do-alvo-de-restauração"><span class="header-section-number">4</span> Definição do alvo de restauração</a>
+  <ul class="collapse">
+  <li><a href="#ecossistema-de-referência" id="toc-ecossistema-de-referência" class="nav-link" data-scroll-target="#ecossistema-de-referência"><span class="header-section-number">4.1</span> Ecossistema de referência</a></li>
+  <li><a href="#estado-desejado" id="toc-estado-desejado" class="nav-link" data-scroll-target="#estado-desejado"><span class="header-section-number">4.2</span> Estado desejado</a></li>
+  <li><a href="#conectividade-como-alvo-de-restauração" id="toc-conectividade-como-alvo-de-restauração" class="nav-link" data-scroll-target="#conectividade-como-alvo-de-restauração"><span class="header-section-number">4.3</span> Conectividade como alvo de restauração</a></li>
+  <li><a href="#indicadores-de-sucesso" id="toc-indicadores-de-sucesso" class="nav-link" data-scroll-target="#indicadores-de-sucesso"><span class="header-section-number">4.4</span> Indicadores de sucesso</a></li>
+  </ul></li>
+  <li><a href="#estados-alternativos-estáveis-e-estratégias-de-restauração" id="toc-estados-alternativos-estáveis-e-estratégias-de-restauração" class="nav-link" data-scroll-target="#estados-alternativos-estáveis-e-estratégias-de-restauração"><span class="header-section-number">5</span> Estados alternativos estáveis e estratégias de restauração</a>
+  <ul class="collapse">
+  <li><a href="#diagnóstico-do-estado-atual" id="toc-diagnóstico-do-estado-atual" class="nav-link" data-scroll-target="#diagnóstico-do-estado-atual"><span class="header-section-number">5.1</span> Diagnóstico do estado atual</a></li>
+  <li><a href="#mecanismos-que-podem-manter-a-fragmentação" id="toc-mecanismos-que-podem-manter-a-fragmentação" class="nav-link" data-scroll-target="#mecanismos-que-podem-manter-a-fragmentação"><span class="header-section-number">5.2</span> Mecanismos que podem manter a fragmentação</a></li>
+  <li><a href="#limiares-ecológicos" id="toc-limiares-ecológicos" class="nav-link" data-scroll-target="#limiares-ecológicos"><span class="header-section-number">5.3</span> Limiares ecológicos</a></li>
+  <li><a href="#estratégias-de-restauração" id="toc-estratégias-de-restauração" class="nav-link" data-scroll-target="#estratégias-de-restauração"><span class="header-section-number">5.4</span> Estratégias de restauração</a></li>
+  <li><a href="#escuta-e-construção-participativa-da-população-tradicional" id="toc-escuta-e-construção-participativa-da-população-tradicional" class="nav-link" data-scroll-target="#escuta-e-construção-participativa-da-população-tradicional"><span class="header-section-number">5.5</span> Escuta e construção participativa da população tradicional</a></li>
+  <li><a href="#integração-entre-o-saber-científico-e-o-conhecimento-territorial" id="toc-integração-entre-o-saber-científico-e-o-conhecimento-territorial" class="nav-link" data-scroll-target="#integração-entre-o-saber-científico-e-o-conhecimento-territorial"><span class="header-section-number">5.6</span> Integração entre o saber científico e o conhecimento territorial</a></li>
+  <li><a href="#oficina-participativa-de-planejamento-da-restauração" id="toc-oficina-participativa-de-planejamento-da-restauração" class="nav-link" data-scroll-target="#oficina-participativa-de-planejamento-da-restauração"><span class="header-section-number">5.7</span> Oficina Participativa de Planejamento da Restauração</a></li>
+  <li><a href="#proposta-de-corredor-ecológico" id="toc-proposta-de-corredor-ecológico" class="nav-link" data-scroll-target="#proposta-de-corredor-ecológico"><span class="header-section-number">5.8</span> Proposta de corredor ecológico</a></li>
+  <li><a href="#monitoramento-ecológico-e-participativo" id="toc-monitoramento-ecológico-e-participativo" class="nav-link" data-scroll-target="#monitoramento-ecológico-e-participativo"><span class="header-section-number">5.9</span> Monitoramento ecológico e participativo</a></li>
+  </ul></li>
+  <li><a href="#síntese" id="toc-síntese" class="nav-link" data-scroll-target="#síntese"><span class="header-section-number">6</span> Síntese</a></li>
+  <li><a href="#referências" id="toc-referências" class="nav-link" data-scroll-target="#referências"><span class="header-section-number">7</span> REFERÊNCIAS</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Da Fragmentação à Conectividade</h1>
+<p class="subtitle lead">Diagnóstico socioecológico e definição de um alvo de restauração nas Matas do Sistema Gurjaú</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mirella Ribeiro </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 30, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="caracterização-da-área-de-estudo-e-historia-de-ocupação" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Caracterização da área de estudo e historia de ocupação</h1>
+<section id="localização-e-contexto-territorial" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="localização-e-contexto-territorial"><span class="header-section-number">1.1</span> Localização e contexto territorial</h2>
+<p>As Matas do Sistema Gurjaú estão inseridas no domínio da Mata Atlântica em Pernambuco, constituindo uma paisagem de relevância para a conservação da biodiversidade e para a manutenção de processos ecológicos associados aos remanescentes de vegetação nativa. O Refúgio de Vida Silvestre Matas do Sistema Gurjaú (RVS Gurjaú) constitui uma Unidade de Conservação estadual inserida no domínio da Mata Atlântica, abrangendo áreas dos municípios de Cabo de Santo Agostinho, Jaboatão dos Guararapes e Moreno, na Região Metropolitana do Recife. A área é reconhecida pela importância para a conservação da biodiversidade e dos recursos hídricos, incluindo nascentes e açudes associados ao abastecimento da Região Metropolitana do Recife. A publicação da CPRH também destaca sua inserção no Centro de Endemismo Pernambuco, região da Mata Atlântica ao norte do rio São Francisco que sofreu intensa transformação histórica, reforçando a relevância de estratégias de conservação e restauração dos remanescentes existentes (CPRH, 2018). Neste estudo, a área é analisada sob a perspectiva da restauração ecológica em escala de paisagem, com ênfase na possibilidade de ampliar a conectividade entre remanescentes florestais, restabelecendo a conectividade funcional entre remanescentes de Floresta Atlântica, favorecendo a regeneração natural, o fluxo de propágulos, as interações planta-animal e o fluxo gênico na paisagem das Matas do Sistema Gurjaú.</p>
+<p>A área de estudo foi delimitada espacialmente a partir do polígono definido durante a investigação das Matas do Sistema Gurjaú. O polígono foi elaborado no Google Earth e posteriormente importado para o ambiente R por meio do formato KML, permitindo sua representação cartográfica e análise espacial.</p>
+<p>A área delimitada apresenta aproximadamente 10.991,6 hectares, correspondentes a cerca de 109,9 km². Esse valor corresponde à área do polígono utilizado neste estudo e não necessariamente à área oficial da Unidade de Conservação.</p>
+<section id="mapa-da-área-de-estudo" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="mapa-da-área-de-estudo"><span class="header-section-number">1.1.1</span> Mapa da área de estudo</h3>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Linking to GEOS 3.14.1, GDAL 3.12.1, PROJ 9.7.1; sf_use_s2() is TRUE</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>terra 1.9.50</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Ecologia_Restauracao_files/figure-html/mapa-localizacao-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="delimitação-espacial-da-área-estudada" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Delimitação espacial da área estudada</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Ecologia_Restauracao_files/figure-html/mapa-uc-area-estudo-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="uso-e-cobertura-da-terra-no-entorno-da-unidade-de-conservação" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="uso-e-cobertura-da-terra-no-entorno-da-unidade-de-conservação"><span class="header-section-number">2.1</span> Uso e cobertura da terra no entorno da unidade de conservação</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Ecologia_Restauracao_files/figure-html/mapa-uso-entorno-uc-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="uso-e-cobertura-da-terra" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="uso-e-cobertura-da-terra"><span class="header-section-number">2.2</span> Uso e cobertura da terra</h2>
+<p>A caracterização do uso e cobertura da terra foi realizada a partir dos dados do MapBiomas, utilizando a cobertura de 10 m da Coleção 4 para o ano de 2025. O raster foi recortado pela área delimitada para este estudo, permitindo identificar a distribuição das diferentes classes de cobertura e uso da terra no interior do polígono analisado.</p>
+<p>A configuração atual da paisagem será analisada considerando a distribuição dos remanescentes de vegetação nativa e sua relação com a matriz de uso e cobertura da terra.</p>
+<p>A identificação de áreas de vegetação potencialmente conectáveis constitui uma etapa importante para avaliar oportunidades de restauração voltadas à ampliação da conectividade ecológica.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-mapbiomas" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mapbiomas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Ecologia_Restauracao_files/figure-html/fig-mapbiomas-1.png" class="img-fluid figure-img" width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mapbiomas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Uso e cobertura da terra na área delimitada para o estudo das Matas do Sistema Gurjaú, segundo o MapBiomas Coleção 4, 2025.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="distribuição-atual-das-classes-de-uso-e-cobertura-da-terra" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="distribuição-atual-das-classes-de-uso-e-cobertura-da-terra"><span class="header-section-number">2.2.1</span> Distribuição atual das classes de uso e cobertura da terra</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="table-responsive">
+<table class="table table-striped table-hover table-condensed caption-top table-sm small">
+<caption>Distribuição das classes de uso e cobertura da terra na área de estudo, segundo o MapBiomas Coleção 4, 2025.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Classe de uso e cobertura</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Área (ha)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Participação (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: left; width: 110px;">Cana</td>
+<td style="text-align: right; width: 120px;">6569.01</td>
+<td style="text-align: right;">59.87</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left; width: 110px;">Formação Florestal</td>
+<td style="text-align: right; width: 120px;">2295.32</td>
+<td style="text-align: right;">20.92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left; width: 110px;">Mosaico de Usos</td>
+<td style="text-align: right; width: 120px;">1534.57</td>
+<td style="text-align: right;">13.99</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: left; width: 110px;">Pastagem</td>
+<td style="text-align: right; width: 120px;">437.03</td>
+<td style="text-align: right;">3.98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left; width: 110px;">Rio, Lago e Oceano</td>
+<td style="text-align: right; width: 120px;">89.11</td>
+<td style="text-align: right;">0.81</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left; width: 110px;">Campo Alagado e Área Pantanosa</td>
+<td style="text-align: right; width: 120px;">26.67</td>
+<td style="text-align: right;">0.24</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+<td style="text-align: left; width: 110px;">Área urbanizada</td>
+<td style="text-align: right; width: 120px;">18.12</td>
+<td style="text-align: right;">0.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left; width: 110px;">Aquicultura</td>
+<td style="text-align: right; width: 120px;">1.89</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left; width: 110px;">Outras Áreas Não Vegetadas</td>
+<td style="text-align: right; width: 120px;">0.94</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="clima-e-solos" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="clima-e-solos"><span class="header-section-number">2.3</span> Clima e solos</h2>
+<p>As Matas do Sistema Gurjaú estão inseridas no contexto ambiental do Litoral Sul de Pernambuco, região caracterizada por clima tropical úmido e por elevada disponibilidade hídrica durante parte significativa do ano.</p>
+<p>As condições climáticas e edáficas influenciam diretamente a dinâmica da vegetação, a regeneração natural e o estabelecimento de espécies vegetais, sendo, portanto, relevantes para a definição de estratégias de restauração ecológica. Segundo o diagnóstico apresentado no documento, a área da Reserva apresenta clima quente e úmido, classificado como As’, segundo Köppen, associado à Zona da Mata Pluvial. O regime climático caracteriza-se pela ocorrência de chuvas principalmente no período de outono-inverno, com precipitação anual indicada em aproximadamente 2.450 mm. O período mais seco ocorre, em geral, entre outubro e dezembro, sendo novembro identificado no documento como o mês de menor precipitação no período analisado A caracterização dos solos na área de estudo será relacionada à distribuição da vegetação, à topografia, à drenagem e ao histórico de uso da terra.Em estudo realizado em um remanescente de Floresta Atlântica localizado no RVS Gurjaú, o clima da área foi caracterizado como As’, quente e úmido, com temperatura média anual de aproximadamente 23 °C, médias anuais de máxima e mínima próximas de 29 °C e 19 °C, respectivamente, e precipitação anual em torno de 2.450 mm. O estudo também caracteriza os solos da área como Latossolos (Santos et al., 2018). Essas condições ambientais constituem elementos importantes para a interpretação da dinâmica da vegetação e dos processos de regeneração natural no território estudado.A área das Matas do Sistema Gurjaú apresenta relevo associado ao Complexo Cristalino e à Formação Cabo, com altitudes entre aproximadamente 80 e 130 m e ocorrência de relevo ondulado e forte ondulado. Os solos associados às áreas de relevo mais acidentado são predominantemente derivados da alteração de rochas cristalinas, apresentando textura argilo-arenosa a areno-argilosa e elevada variabilidade de profundidade. O documento também registra associações de Latossolos e Podzólicos, além de solos hidromórficos e aluviais nas áreas de várzea. A combinação entre relevo e características do solo confere à área susceptibilidade a processos erosivos, aspecto relevante para a avaliação dos processos de degradação e para a definição de estratégias de restauração.</p>
+</section>
+<section id="vegetação-e-estrutura-da-paisagem" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="vegetação-e-estrutura-da-paisagem"><span class="header-section-number">2.4</span> Vegetação e estrutura da paisagem</h2>
+<p>A paisagem estudada apresenta remanescentes de vegetação nativa inseridos em uma matriz territorial composta por diferentes usos da terra.</p>
+<p>Nesse contexto, a restauração ecológica pode ser utilizada não apenas para recuperar áreas degradadas isoladamente, mas também para aumentar a conectividade entre remanescentes existentes.</p>
+<p>A identificação de áreas estratégicas para restauração poderá contribuir para reduzir o isolamento dos fragmentos e favorecer processos ecológicos relacionados ao deslocamento da fauna, à dispersão de sementes, à polinização e ao fluxo gênico. A estrutura e a dinâmica da vegetação do RVS Gurjaú também podem ser caracterizadas a partir dos processos de regeneração e dispersão de propágulos. Em estudo realizado em um remanescente de Floresta Atlântica da unidade, foram registradas 61 espécies na chuva de sementes ao longo de dois anos de amostragem, com destaque para Fabaceae, que apresentou oito espécies. Entre as síndromes de dispersão, observou-se elevada densidade de sementes zoocóricas em comparação às síndromes anemocórica e autocórica (Santos et al., 2018).</p>
+<p>Esse resultado evidencia que a manutenção da dinâmica florestal no território não depende apenas da presença física dos remanescentes de vegetação, mas também da continuidade dos processos ecológicos associados à fauna. Os autores destacam que os animais participam da entrada e saída de propágulos nos fragmentos e que as interações entre plantas e animais relacionadas à polinização e à dispersão contribuem para processos sucessionais e para o fluxo gênico, favorecendo o estabelecimento de populações vegetais viáveis (Santos et al., 2018).</p>
+</section>
+<section id="fauna-e-importância-ecológica" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="fauna-e-importância-ecológica"><span class="header-section-number">2.5</span> Fauna e importância ecológica</h2>
+<p>As informações obtidas por meio do diagnóstico socioambiental serão utilizadas para caracterizar a comunidade de fauna registrada na área de estudo.</p>
+<p>Além da ocorrência das espécies, serão considerados aspectos relacionados à sua função ecológica e à sua dependência da disponibilidade e conectividade dos habitats. A fauna do RVS Gurjaú apresenta também relevância para a avaliação das condições ambientais dos fragmentos. Levantamento realizado entre 2015 e 2018 registrou 30 espécies de anfíbios, pertencentes a 15 gêneros e oito famílias. O estudo destaca a sensibilidade dos anfíbios às alterações ambientais e identificou diferenças na riqueza e na composição das assembleias entre fragmentos submetidos a diferentes gradientes de influência antrópica (Barbosa et al., 2018).</p>
+<p>Esses resultados são particularmente relevantes para o diagnóstico da paisagem, pois indicam que a fragmentação e a heterogeneidade das condições ambientais podem estar associadas a alterações na composição das comunidades biológicas. Dessa forma, a avaliação da conectividade da paisagem deve considerar não apenas a distribuição espacial dos remanescentes florestais, mas também sua capacidade de sustentar comunidades e processos ecológicos associados.</p>
+</section>
+<section id="contexto-socioambiental-e-uso-do-território" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="contexto-socioambiental-e-uso-do-território"><span class="header-section-number">2.6</span> Contexto socioambiental e uso do território</h2>
+<p>A compreensão da paisagem não se limita aos seus componentes ecológicos. Os diferentes usos do território, as atividades humanas e as relações estabelecidas pelas comunidades com o ambiente também fazem parte do diagnóstico socioecológico.</p>
+<p>Dessa forma, a definição das estratégias de restauração deverá considerar simultaneamente os processos ecológicos e as características sociais e territoriais da área estudada. O contexto socioambiental do Sistema Gurjaú envolve a sobreposição entre conservação da biodiversidade, usos do território e necessidades das populações locais. Estudos reunidos pela CPRH registram a presença de comunidades de agricultores no interior e no entorno da unidade, com atividades de subsistência acompanhadas pela gestão e pelo Conselho Gestor. Representantes comunitários e sindicais participam das reuniões do Conselho, evidenciando que a conservação da área está relacionada também à construção de mecanismos de participação e articulação entre diferentes atores sociais (Vieira-Silva et al., 2018).</p>
+<p>Entre as pressões identificadas para a unidade estão caça, desmatamento e deposição de resíduos sólidos. O diagnóstico também aponta a existência de pressões relacionadas às ocupações urbanas, plantações e criação de animais, além de vulnerabilidades de natureza social e socioeconômica (Vieira-Silva et al., 2018; Souza; Barbosa, 2018).</p>
+<p>Nesse contexto, a restauração da paisagem deve ser compreendida como um processo socioecológico, no qual a recuperação da vegetação e da conectividade precisa ser articulada às formas de uso do território, às condições sociais locais e aos mecanismos de participação existentes. Assim, a definição das áreas prioritárias para restauração não deve considerar somente critérios biofísicos, mas também a viabilidade territorial e a participação dos atores envolvidos.</p>
+</section>
+</section>
+<section id="histórico-e-diagnóstico-da-degradação" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Histórico e diagnóstico da degradação</h1>
+<p>No diagnóstico da área, foram identificados problemas relacionados à ocupação e proteção dos recursos naturais, incluindo desmatamento, caça, erosão e poluição dos recursos hídricos. O documento aponta esses processos entre os aspectos que demandavam intervenção para a proteção da Reserva. As Matas do Sistema Gurjaú estão inseridas em uma paisagem cuja configuração atual resulta de uma longa trajetória de ocupação e transformação territorial. A área está localizada na porção sul da Região Metropolitana do Recife, entre os municípios de Jaboatão dos Guararapes, Cabo de Santo Agostinho e Moreno, e integra a bacia do rio Pirapama, tendo o rio Gurjaú como um de seus principais tributários.</p>
+<p>Historicamente, a região esteve associada à implantação de engenhos e ao desenvolvimento da cultura canavieira. O diagnóstico registra a presença de diversos engenhos na área, incluindo São João, Secupema e São Salvador. No início do século XX, parte dessas propriedades foi adquirida ou desapropriada pelo Estado de Pernambuco para fins relacionados ao abastecimento de água, estabelecendo uma relação entre a conservação dos recursos naturais e a segurança hídrica da Região Metropolitana do Recife.</p>
+<p>A área apresenta condições ambientais heterogêneas, com clima quente e úmido, precipitação anual indicada no diagnóstico em aproximadamente 2.450 mm e diferentes unidades de solo, incluindo Latossolos, Podzólicos, Gleissolos, Cambissolos e solos aluviais, distribuídos em diferentes condições de relevo e drenagem.</p>
+<p>A Reserva Ecológica de Gurjaú foi criada pela Lei Estadual nº 9.989, de 13 de janeiro de 1987, tendo como finalidade a proteção de remanescentes de Mata Atlântica. Entretanto, o diagnóstico histórico aponta limitações na implementação e proteção efetiva dessas áreas, além da ocorrência de pressões como desmatamento, caça, erosão e poluição dos recursos hídricos.</p>
+<p>Dessa forma, a paisagem de Gurjaú pode ser compreendida como resultado da interação entre história de ocupação, uso agrícola, infraestrutura de abastecimento hídrico, proteção de remanescentes florestais e diferentes processos de transformação ambiental. Essa trajetória histórica constitui a base para compreender a atual configuração da cobertura da terra e discutir estratégias de restauração voltadas à recuperação da vegetação e ao aumento da conectividade entre os remanescentes florestais.</p>
+<section id="histórico-de-transformação-da-paisagem-mapbiomas" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="histórico-de-transformação-da-paisagem-mapbiomas"><span class="header-section-number">3.1</span> Histórico de transformação da paisagem (mapbiomas)</h2>
+<p>A reconstrução da trajetória de transformação da paisagem será realizada a partir das informações disponíveis sobre o histórico de uso da área e das evidências obtidas durante o diagnóstico socioambiental.</p>
+<p>O objetivo é compreender como a configuração atual da paisagem foi formada e quais processos contribuíram para a redução, fragmentação ou alteração da vegetação nativa. A trajetória registrada pelo MapBiomas evidencia mudanças importantes na composição do território estudado, particularmente a expansão da classe Cana e a redução do Mosaico de Usos entre 1985 e 2005. Entretanto, a interpretação dessas mudanças deve ser feita em conjunto com evidências ecológicas produzidas na própria região. Estudos realizados no RVS Gurjaú registraram diferenças na composição e riqueza de anfíbios associadas a gradientes antrópicos e demonstraram a importância da fauna para a dispersão de propágulos e para processos relacionados à regeneração florestal (Barbosa et al., 2018; Santos et al., 2018).</p>
+<p>Dessa forma, os dados históricos de uso e cobertura da terra não são interpretados isoladamente como evidência de degradação ecológica. Eles constituem uma evidência da transformação da matriz territorial que, quando associada aos estudos ecológicos realizados na região, permite discutir possíveis implicações da fragmentação para a manutenção de processos ecológicos e da conectividade funcional.</p>
+</section>
+<section id="fragmentação-e-perda-de-conectividade" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="fragmentação-e-perda-de-conectividade"><span class="header-section-number">3.2</span> Fragmentação e perda de conectividade</h2>
+<p>A fragmentação da vegetação pode aumentar o isolamento entre remanescentes e modificar processos ecológicos relacionados ao deslocamento dos organismos.</p>
+<p>Neste estudo, a conectividade será analisada como um componente central do diagnóstico, considerando a possibilidade de utilização da restauração para estabelecer ou fortalecer conexões entre áreas de habitat.</p>
+</section>
+<section id="vetores-de-degradação" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="vetores-de-degradação"><span class="header-section-number">3.3</span> Vetores de degradação</h2>
+<p>Serão identificados os principais fatores que contribuíram para a degradação ou fragmentação da paisagem, considerando as evidências disponíveis para a área de estudo. Os estudos reunidos pela CPRH identificam diferentes pressões incidentes sobre o território do RVS Gurjaú, incluindo caça, desmatamento e deposição de resíduos sólidos. Também são apontadas pressões associadas às ocupações urbanas, plantações e criação de animais, além de vulnerabilidades sociais e socioeconômicas que interferem na governança e na capacidade de conservação da unidade (Vieira-Silva et al., 2018; Souza; Barbosa, 2018).</p>
+<p>A presença desses vetores indica que a transformação da paisagem não pode ser compreendida exclusivamente como resultado de alterações na cobertura vegetal. A dinâmica territorial envolve simultaneamente fatores ecológicos, produtivos, sociais e institucionais. Por esse motivo, estratégias de restauração voltadas à conectividade devem considerar tanto a localização dos remanescentes e áreas prioritárias para recuperação quanto as condições de uso, ocupação e gestão existentes no território.</p>
+</section>
+<section id="alterações-nos-processos-ecológicos" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="alterações-nos-processos-ecológicos"><span class="header-section-number">3.4</span> Alterações nos processos ecológicos</h2>
+<p>As alterações na estrutura da paisagem podem produzir efeitos sobre processos como dispersão de sementes, polinização, movimentação da fauna e regeneração da vegetação.</p>
+<p>A identificação desses processos será utilizada para orientar a definição do alvo de restauração. As evidências disponíveis para o RVS Gurjaú indicam que as alterações na paisagem podem ser discutidas também a partir dos processos ecológicos que sustentam a regeneração e a manutenção das comunidades. O estudo de chuva de sementes registrou elevada participação de espécies zoocóricas e destaca a importância dos animais na entrada e saída de propágulos dos fragmentos. Os autores ressaltam ainda que as interações entre plantas e animais relacionadas à polinização e à dispersão contribuem para processos sucessionais e para o fluxo gênico (Santos et al., 2018).</p>
+<p>Paralelamente, o levantamento de anfíbios registrou 30 espécies e identificou diferenças na riqueza e composição das assembleias entre fragmentos submetidos a diferentes gradientes antrópicos (Barbosa et al., 2018).</p>
+<p>Em conjunto, essas evidências reforçam que o diagnóstico da paisagem deve ultrapassar a análise da quantidade de cobertura florestal. A conservação e a restauração dos remanescentes devem considerar a manutenção dos processos que conectam os fragmentos, incluindo deslocamento da fauna, dispersão de sementes, regeneração natural, polinização e fluxo gênico. Nesse sentido, a conectividade passa a constituir uma dimensão funcional do processo de restauração.</p>
+</section>
+</section>
+<section id="definição-do-alvo-de-restauração" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Definição do alvo de restauração</h1>
+<section id="ecossistema-de-referência" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="ecossistema-de-referência"><span class="header-section-number">4.1</span> Ecossistema de referência</h2>
+<p>O ecossistema de referência será definido a partir das características dos remanescentes de vegetação nativa existentes na própria paisagem e das informações ecológicas disponíveis para a região.</p>
+<p>Dessa forma, o alvo de restauração não será definido como uma condição natural abstrata ou necessariamente como uma reconstrução de uma paisagem considerada intocada, mas como uma condição de referência espacialmente e ecologicamente relacionada à área estudada. Para a definição do ecossistema de referência, além das características estruturais da Floresta Atlântica regional, devem ser considerados os processos ecológicos registrados nos remanescentes existentes no Sistema Gurjaú. A ocorrência de chuva de sementes com 61 espécies, a elevada participação de espécies zoocóricas e o registro de diferentes grupos de fauna demonstram que os remanescentes locais ainda constituem fontes de propágulos e habitats capazes de sustentar processos ecológicos relevantes (Santos et al., 2018; Barbosa et al., 2018).</p>
+<p>Assim, o ecossistema de referência adotado neste trabalho não deve ser entendido exclusivamente como uma condição histórica ou como uma composição vegetal fixa. Ele é considerado a partir da estrutura da vegetação, da composição biológica e, sobretudo, dos processos ecológicos que permitem a regeneração e a manutenção da biodiversidade na paisagem.</p>
+</section>
+<section id="estado-desejado" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="estado-desejado"><span class="header-section-number">4.2</span> Estado desejado</h2>
+<p>O estado desejado consiste na recuperação de características da vegetação nativa e de processos ecológicos capazes de favorecer a manutenção da biodiversidade e a conectividade da paisagem.</p>
+</section>
+<section id="conectividade-como-alvo-de-restauração" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="conectividade-como-alvo-de-restauração"><span class="header-section-number">4.3</span> Conectividade como alvo de restauração</h2>
+<p>A conectividade ecológica constitui o principal eixo deste estudo.</p>
+<p>A hipótese de trabalho é que áreas selecionadas estrategicamente para restauração possam contribuir para reduzir a distância ou o isolamento entre remanescentes de vegetação nativa, favorecendo o deslocamento de organismos e outros processos ecológicos.</p>
+<p>A identificação dessas áreas deverá ser fundamentada nas características espaciais da paisagem e nas informações ecológicas disponíveis. Os estudos realizados no RVS Gurjaú fornecem evidências de que a conservação da paisagem depende da manutenção de processos ecológicos que ultrapassam os limites de fragmentos individuais. A elevada ocorrência de sementes zoocóricas demonstra a importância da fauna para o transporte de propágulos, enquanto as interações entre plantas e animais relacionadas à dispersão e à polinização estão associadas à regeneração e ao fluxo gênico. Paralelamente, diferenças na composição e riqueza de anfíbios entre fragmentos submetidos a diferentes gradientes antrópicos evidenciam a relação entre condições da paisagem e comunidades biológicas (Santos et al., 2018; Barbosa et al., 2018).</p>
+<p>Diante disso, a conectividade é definida neste trabalho não apenas como a continuidade física da cobertura florestal, mas como uma condição da paisagem capaz de favorecer o deslocamento de organismos e a manutenção dos processos ecológicos. O alvo de restauração, portanto, consiste em ampliar e qualificar a conexão entre remanescentes de Floresta Atlântica, favorecendo a dispersão de propágulos, a regeneração natural, as interações planta-animal e o fluxo gênico.</p>
+<p>Nesse sentido, a restauração das áreas prioritárias deverá contribuir para transformar uma paisagem caracterizada por remanescentes isolados e uma matriz predominantemente antrópica em uma paisagem com maior continuidade e permeabilidade ecológica.</p>
+</section>
+<section id="indicadores-de-sucesso" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="indicadores-de-sucesso"><span class="header-section-number">4.4</span> Indicadores de sucesso</h2>
+<p>Entre os indicadores que poderão ser utilizados estão a recuperação da cobertura vegetal nativa, o estabelecimento de regeneração natural, a redução de áreas de descontinuidade entre remanescentes e evidências de utilização das áreas restauradas pela fauna.</p>
+</section>
+</section>
+<section id="estados-alternativos-estáveis-e-estratégias-de-restauração" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Estados alternativos estáveis e estratégias de restauração</h1>
+<section id="diagnóstico-do-estado-atual" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="diagnóstico-do-estado-atual"><span class="header-section-number">5.1</span> Diagnóstico do estado atual</h2>
+<p>O estado atual da área será analisado considerando a estrutura da vegetação, o grau de fragmentação, as condições ambientais e os fatores de perturbação identificados.</p>
+</section>
+<section id="mecanismos-que-podem-manter-a-fragmentação" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="mecanismos-que-podem-manter-a-fragmentação"><span class="header-section-number">5.2</span> Mecanismos que podem manter a fragmentação</h2>
+<p>A permanência de áreas degradadas ou isoladas pode estar associada à continuidade de processos de perturbação, à baixa disponibilidade de propágulos, ao isolamento dos remanescentes ou à existência de uma matriz pouco permeável ao deslocamento da fauna.</p>
+<p>Esses mecanismos deverão ser relacionados às evidências observadas na área de estudo. A manutenção da fragmentação da paisagem pode estar associada à permanência de diferentes pressões territoriais. Estudos realizados no RVS Gurjaú registram caça, desmatamento e deposição de resíduos sólidos como pressões sobre a unidade, além de ocupações urbanas, plantações e criação de animais entre os fatores relacionados às ameaças e vulnerabilidades identificadas no território (Vieira-Silva et al., 2018; Souza; Barbosa, 2018).</p>
+<p>A persistência desses fatores pode dificultar tanto a recuperação da vegetação quanto a manutenção da conectividade entre os fragmentos. Além disso, a literatura local evidencia que a conservação depende de mecanismos de governança, participação comunitária, recursos humanos e financeiros e ações permanentes de educação ambiental (Vieira-Silva et al., 2018; Souza; Barbosa, 2018).</p>
+<p>Assim, a permanência de um estado fragmentado pode resultar da interação entre processos biofísicos e condições socioambientais, tornando insuficiente uma estratégia de restauração baseada exclusivamente no plantio de espécies arbóreas.</p>
+</section>
+<section id="limiares-ecológicos" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="limiares-ecológicos"><span class="header-section-number">5.3</span> Limiares ecológicos</h2>
+<p>A análise de possíveis limiares ecológicos será utilizada para discutir se a configuração atual da paisagem pode limitar a recuperação natural da vegetação ou a movimentação dos organismos entre os remanescentes.</p>
+</section>
+<section id="estratégias-de-restauração" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="estratégias-de-restauração"><span class="header-section-number">5.4</span> Estratégias de restauração</h2>
+<p>As estratégias de restauração serão definidas de acordo com as características ambientais e sociais identificadas no diagnóstico.</p>
+<p>Entre as possibilidades estão a condução da regeneração natural, o enriquecimento de áreas em regeneração, o plantio de espécies nativas e a recuperação de áreas estratégicas para aumentar a conectividade.</p>
+<p>A escolha da estratégia deverá considerar as condições específicas de cada área e os fatores que atualmente limitam sua recuperação. A experiência acumulada no RVS Gurjaú demonstra também a importância de estratégias de educação ambiental articuladas à conservação. Entre as iniciativas desenvolvidas pela gestão da unidade encontra-se o projeto “Mata Atlântica: Estudo, Conheço, Quero Bem!”, que envolveu escolas dos municípios de Cabo de Santo Agostinho, Moreno e Jaboatão dos Guararapes, com formação de 60 docentes por meio de atividades como palestras, aulas interativas e saídas de campo (Braz et al., 2018).</p>
+<p>Essas experiências indicam que ações de restauração em uma paisagem socioecológica como Gurjaú podem incorporar processos de formação, comunicação e participação social como componentes da estratégia de conservação. A restauração da conectividade, portanto, deve considerar não apenas intervenções físicas na paisagem, mas também a construção de condições sociais que favoreçam a manutenção das áreas restauradas.</p>
+<p>## Articulação institucional e alinhamento com o Conselho Gestor</p>
+<p>A primeira etapa da estratégia de restauração proposta consiste na realização de uma reunião de alinhamento com a gestão da Unidade de Conservação, a CPRH e o Conselho Gestor do RVS Matas do Sistema Gurjaú. O objetivo é apresentar o diagnóstico socioecológico produzido, discutir os resultados do levantamento de uso e cobertura da terra, a identificação dos remanescentes e das áreas potencialmente prioritárias para restauração e, principalmente, estabelecer um processo participativo para definição das estratégias de intervenção.</p>
+<p>Essa etapa é necessária porque a restauração ocorre em um território que já possui dinâmica institucional, histórica e social própria. Assim, as áreas identificadas por critérios ecológicos devem ser confrontadas com o conhecimento da gestão da unidade e com as condições concretas de uso e ocupação do território. O Conselho Gestor constitui, nesse sentido, um espaço inicial de articulação entre diferentes atores envolvidos na conservação.</p>
+<p>A reunião deverá produzir, como encaminhamento, um plano inicial de participação social, definindo os atores a serem envolvidos, formas de comunicação, metodologia de escuta, áreas ou comunidades prioritárias para as atividades participativas e mecanismos para incorporação das contribuições locais às decisões do projeto.</p>
+</section>
+<section id="escuta-e-construção-participativa-da-população-tradicional" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="escuta-e-construção-participativa-da-população-tradicional"><span class="header-section-number">5.5</span> Escuta e construção participativa da população tradicional</h2>
+<p>Após o alinhamento institucional, será desenvolvido um processo de escuta e construção participativa junto às populações moradoras ancestrais do território. Essa etapa parte do reconhecimento de que os habitantes que mantêm relações históricas com a paisagem possuem conhecimentos construídos a partir da experiência cotidiana e da observação continuada do território, incluindo informações sobre mudanças ambientais, disponibilidade de água, áreas de ocorrência de fauna, locais de regeneração natural, espécies utilizadas, áreas de maior pressão e transformações ocorridas ao longo do tempo.</p>
+<p>A escuta não deverá ser conduzida apenas como procedimento de coleta de informações para subsidiar decisões técnicas. Ela será compreendida como espaço de diálogo entre conhecimento científico, conhecimento ecológico local e experiências territoriais. Dessa forma, os moradores serão considerados sujeitos participantes da construção das estratégias de restauração, e não apenas beneficiários ou fontes de informação.</p>
+<p>As atividades poderão ser realizadas por meio de rodas de conversa, caminhadas de reconhecimento territorial, mapas participativos, entrevistas e oficinas, respeitando os modos de organização e comunicação de cada comunidade. Durante esse processo deverão ser identificadas percepções sobre as mudanças ocorridas na paisagem, áreas consideradas importantes pela população, práticas de manejo existentes, espécies de interesse, locais com potencial de regeneração, conflitos de uso e oportunidades para participação direta nas ações de restauração.</p>
+<p>As informações produzidas nessa etapa deverão ser sistematizadas e posteriormente confrontadas com os dados ecológicos e espaciais do diagnóstico, permitindo identificar convergências, complementaridades e eventuais divergências entre diferentes formas de conhecimento.</p>
+</section>
+<section id="integração-entre-o-saber-científico-e-o-conhecimento-territorial" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="integração-entre-o-saber-científico-e-o-conhecimento-territorial"><span class="header-section-number">5.6</span> Integração entre o saber científico e o conhecimento territorial</h2>
+<p>A definição das estratégias de restauração será construída a partir da integração entre diferentes formas de conhecimento. Os dados provenientes do sensoriamento remoto, dos levantamentos de biodiversidade e da literatura científica serão articulados ao conhecimento produzido pelos moradores a partir de sua experiência histórica e cotidiana no território.</p>
+<p>Essa integração poderá contribuir para identificar situações que não são necessariamente evidentes em uma análise espacial, como locais de regeneração espontânea, áreas utilizadas ou evitadas pela fauna, mudanças históricas na disponibilidade de recursos, ocorrência de espécies, alterações na disponibilidade hídrica e áreas submetidas a diferentes formas de manejo.</p>
+<p>O conhecimento local será, portanto, incorporado como componente do diagnóstico socioecológico e como subsídio para a tomada de decisão. A análise espacial poderá indicar áreas potencialmente prioritárias para restauração, enquanto o conhecimento territorial poderá contribuir para avaliar sua viabilidade, compreender sua dinâmica e definir estratégias adequadas às condições locais.</p>
+<p>Dessa forma, a restauração será planejada a partir da complementaridade entre evidências científicas e conhecimentos produzidos no território, evitando a adoção de soluções padronizadas e descontextualizadas.</p>
+</section>
+<section id="oficina-participativa-de-planejamento-da-restauração" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="oficina-participativa-de-planejamento-da-restauração"><span class="header-section-number">5.7</span> Oficina Participativa de Planejamento da Restauração</h2>
+<p>Após a etapa de escuta, será realizada uma oficina participativa de co-desenho das estratégias de restauração. Os resultados do diagnóstico espacial e ecológico serão apresentados em linguagem acessível e confrontados com os conhecimentos e percepções construídos pelas comunidades.</p>
+<p>A oficina deverá buscar responder coletivamente a questões como: quais áreas devem ser priorizadas; quais locais apresentam potencial de regeneração natural; onde a restauração ativa seria necessária; quais espécies são reconhecidas como importantes pela população; quais práticas locais podem ser incorporadas ao processo; quais áreas apresentam restrições ou conflitos de uso; e de que maneira os moradores podem participar da implantação, do monitoramento e da manutenção das áreas restauradas.</p>
+<p>A partir desse processo, as áreas prioritárias poderão ser classificadas segundo diferentes estratégias de restauração, como condução da regeneração natural, enriquecimento de áreas em regeneração, restauração ativa por plantio de espécies nativas, implantação de núcleos de regeneração, recuperação de áreas ripárias e estabelecimento de elementos de conexão entre fragmentos.</p>
+<p>A definição da técnica, portanto, deverá decorrer das condições ecológicas e sociais de cada área, e não da aplicação de uma única metodologia para todo o território. A restauração proposta deverá ser acompanhada por uma estratégia de integração entre pesquisa científica e protagonismo social. Para isso, as comunidades poderão participar da identificação de perguntas de pesquisa, do reconhecimento de áreas prioritárias, do acompanhamento da regeneração e do registro de mudanças observadas no território.</p>
+<p>Essa abordagem permite transformar a restauração em um processo contínuo de aprendizagem, no qual os resultados das pesquisas retornam ao território em linguagem acessível e podem orientar decisões posteriores. Ao mesmo tempo, observações realizadas pelos moradores podem gerar novas perguntas e hipóteses a serem investigadas pela equipe científica.</p>
+<p>Sempre que pertinente, poderão ser desenvolvidas ações de ciência participativa, como registros de fauna e flora, acompanhamento da regeneração natural, monitoramento da ocorrência de espécies dispersoras, registro da floração e frutificação de espécies nativas e acompanhamento de áreas restauradas.</p>
+<p>O objetivo não é substituir métodos científicos por observações locais, mas construir uma relação complementar entre diferentes formas de produção de conhecimento. Nesse modelo, a população participa como sujeito do processo de restauração e como parceira na produção e interpretação das informações sobre a paisagem. Somente após as etapas de alinhamento institucional, escuta territorial e co-desenho deverão ser definidas as intervenções específicas de restauração. A escolha das técnicas será orientada pela combinação entre o diagnóstico da paisagem, as condições ecológicas locais, o potencial de regeneração natural, as pressões existentes e as informações produzidas pelas comunidades.</p>
+<p>Áreas que apresentem capacidade de regeneração espontânea poderão ser destinadas prioritariamente à condução da regeneração natural, com redução ou controle dos fatores de degradação. Áreas nas quais a regeneração seja insuficiente poderão receber enriquecimento ou plantio de espécies nativas. Em pontos estratégicos para a conectividade, poderão ser implantados núcleos de restauração ou faixas de vegetação que funcionem como elementos de conexão entre remanescentes.</p>
+<p>A restauração deverá priorizar espécies nativas ecologicamente adequadas às condições locais e, sempre que tecnicamente apropriado, considerar espécies reconhecidas pelas comunidades como importantes para alimentação, uso cultural, atração de fauna ou outras funções socioecológicas.</p>
+<p>A implantação deverá ser acompanhada de ações de proteção, manutenção e monitoramento, com definição clara das responsabilidades institucionais e comunitárias e dos mecanismos de acompanhamento dos resultados.</p>
+</section>
+<section id="proposta-de-corredor-ecológico" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="proposta-de-corredor-ecológico"><span class="header-section-number">5.8</span> Proposta de corredor ecológico</h2>
+<p>A partir do diagnóstico espacial e ecológico, será discutida a possibilidade de estabelecimento de uma estratégia de restauração voltada à formação de uma conexão entre remanescentes de vegetação nativa.</p>
+<p>Neste estudo, o corredor ecológico será tratado como uma hipótese de planejamento da paisagem, cuja efetividade deverá ser posteriormente avaliada por meio de análises espaciais e indicadores ecológicos.</p>
+</section>
+<section id="monitoramento-ecológico-e-participativo" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="monitoramento-ecológico-e-participativo"><span class="header-section-number">5.9</span> Monitoramento ecológico e participativo</h2>
+<p>O monitoramento deverá acompanhar tanto a recuperação da estrutura da vegetação quanto a retomada de processos ecológicos e a participação social. Entre os indicadores ecológicos poderão ser considerados sobrevivência e crescimento das plantas, cobertura do solo, regeneração natural, riqueza e composição de espécies, presença de fauna dispersora e polinizadora e ocorrência de processos de floração, frutificação e dispersão.</p>
+<p>Para avaliar a conectividade, deverão ser acompanhadas mudanças na configuração espacial dos remanescentes e das áreas restauradas, bem como indicadores relacionados à utilização dessas áreas pela fauna e à ocorrência de regeneração entre fragmentos.</p>
+<p>O monitoramento social deverá considerar a participação dos moradores nas atividades, a continuidade das ações locais, a percepção sobre as mudanças ocorridas no território e a incorporação do conhecimento produzido pelas comunidades ao planejamento das etapas seguintes.</p>
+<p>Sempre que possível, o monitoramento será realizado de forma participativa, envolvendo moradores, pesquisadores, gestores e instituições parceiras. Os resultados deverão ser periodicamente compartilhados com os participantes, permitindo que o processo de restauração seja adaptativo e que as estratégias sejam revisadas conforme os resultados observados.</p>
+</section>
+</section>
+<section id="síntese" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Síntese</h1>
+<p>O diagnóstico das Matas do Sistema Gurjaú indica a importância de analisar a restauração ecológica em escala de paisagem, considerando não apenas a recuperação de áreas isoladas, mas também a conectividade entre remanescentes de vegetação nativa. A delimitação espacial realizada neste estudo permite organizar as informações ecológicas e socioambientais em uma mesma unidade de análise. A reconstrução do histórico de uso e dos processos de degradação será fundamental para compreender os fatores que condicionam a configuração atual da paisagem. A definição do alvo de restauração será baseada em referências ecológicas locais e na recuperação de processos, evitando a adoção de um estado natural abstrato como objetivo. A conectividade será considerada um componente central do planejamento da restauração. A identificação de áreas estratégicas poderá contribuir para reduzir o isolamento entre fragmentos. Entretanto, a efetividade de uma possível conexão deverá ser avaliada por indicadores espaciais e ecológicos. Assim, a restauração proposta deverá integrar recuperação da vegetação, conservação da biodiversidade e planejamento territorial.</p>
+</section>
+<section id="referências" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> REFERÊNCIAS</h1>
+<p>AGÊNCIA ESTADUAL DE MEIO AMBIENTE – CPRH. <em>Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú</em>. Recife: CPRH, 2018.</p>
+<p>BARBOSA, Gessica Gomes et al.&nbsp;Anfíbios de uma área protegida de Mata Atlântica, Nordeste do Brasil. In: CPRH. <em>Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú</em>. Recife: CPRH, 2018.</p>
+<p>BRAZ, Elaine Cristina Ferreira; AMORIM, Fábio Joventino de; GUERRA, Tassiane Novacosque Feitosa. Projeto de Educação Ambiental Mata Atlântica: Estudo, Conheço, Quero Bem! In: CPRH. <em>Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú</em>. Recife: CPRH, 2018.</p>
+<p>SANTOS, Priscila Silva dos et al.&nbsp;Síndrome de dispersão das espécies presentes na chuva de sementes em um fragmento de Floresta Atlântica em Pernambuco, Brasil. In: CPRH. <em>Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú</em>. Recife: CPRH, 2018.</p>
+<p>SOUZA, Tatiana Santana de; BARBOSA, Marx Prestes. Áreas (des)protegidas do Nordeste brasileiro: as ameaças, vulnerabilidades e riscos no Refúgio de Vida Silvestre Matas do Sistema Gurjaú/PE, Brasil. In: CPRH. <em>Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú</em>. Recife: CPRH, 2018.</p>
+<p>VIEIRA-SILVA, Kevin Cezar de Santana et al.&nbsp;Avaliação da efetividade da Unidade de Conservação Refúgio da Vida Silvestre Mata de Gurjaú na percepção dos técnicos e funcionários. In: CPRH. <em>Pesquisas Científicas e Práticas de Educação Ambiental no Refúgio de Vida Silvestre Matas do Sistema Gurjaú</em>. Recife: CPRH, 2018.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
